@@ -65,6 +65,30 @@ df["Days to Failure"] = df.apply(days, axis=1)
 # SORT
 ranked_df = df.sort_values("Risk Index", ascending=False)
 
+# SIDEBAR FILTERS
+st.sidebar.title("Filters")
+
+risk_filter = st.sidebar.selectbox(
+    "Risk Level",
+    ["All", "Critical", "High", "Medium", "Low"]
+)
+
+store_filter = st.sidebar.selectbox(
+    "Store",
+    ["All"] + sorted(ranked_df["Store"].tolist())
+)
+
+filtered_df = ranked_df.copy()
+
+if risk_filter != "All":
+    filtered_df = filtered_df[filtered_df["Risk Score"] == risk_filter]
+
+if store_filter != "All":
+    filtered_df = filtered_df[filtered_df["Store"] == store_filter]
+
+# use filtered instead of ranked
+ranked_df = filtered_df
+
 top_store = ranked_df.iloc[0]
 
 # -----------------------------
