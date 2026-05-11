@@ -24,7 +24,7 @@ st.caption("Predictive Retail Intelligence System")
 # -----------------------------
 # 📂 LOAD DATA
 # -----------------------------
-file_path = os.path.join(os.getcwd(), "storescorecard_clean.xlsx")
+file_path = os.path.join(os.getcwd(), "storescorecard.xlsx")
 df = pd.read_excel(file_path)
 
 df["Daily Expected Impact"] = pd.to_numeric(df["Daily Expected Impact"], errors="coerce").fillna(0)
